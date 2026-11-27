@@ -29,7 +29,21 @@ claude-style-engineer/
 
 ## Installation
 
-### Option 1: Single-source Git clone + symlinks (recommended)
+### Option 1: Download from Releases (no Git required)
+
+Download `claude-style-engineer-v1.0.0.zip` (or `.tar.gz`) from the [Releases](https://github.com/TingChieh/claude-style-engineer/releases/latest) page, extract it, and copy the `claude-style-engineer/` folder into your agent's skill directory:
+
+```bash
+# Codex / OpenCode (global)
+mkdir -p ~/.agents/skills
+cp -R claude-style-engineer ~/.agents/skills/
+
+# Google Antigravity (global)
+mkdir -p ~/.gemini/config/skills
+cp -R claude-style-engineer ~/.gemini/config/skills/
+```
+
+### Option 2: Single-source Git clone + symlinks (recommended for updates)
 
 Clone once into your projects folder and symlink into each agent's skill directory so updates stay in sync via `git pull`:
 
@@ -51,13 +65,9 @@ Update anytime with:
 git -C ~/projects/claude-style-engineer pull --ff-only
 ```
 
-### Option 2: Direct copy (global or project-local)
+### Option 3: Project-local installation
 
-Copy the repository folder to any of the standard discovery paths:
-
-- **Codex / OpenCode (global):** `~/.agents/skills/claude-style-engineer/`
-- **Google Antigravity (global):** `~/.gemini/config/skills/claude-style-engineer/`
-- **Project-local:** `<repo>/.agents/skills/claude-style-engineer/`
+Copy or clone the folder into `<repo>/.agents/skills/claude-style-engineer/`.
 
 ## Usage
 
