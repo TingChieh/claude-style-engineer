@@ -2,18 +2,18 @@
 
 A compact, single-agent, acceptance-driven coding workflow Skill for **Codex**, **Google Antigravity**, **OpenCode**, and other Agent Skills-compatible coding agents.
 
-It distills recurring engineering habits from real day-to-day software development into a concise, low-overhead process (`SKILL.md` is ~45 lines; detailed verification rules load on demand) — without importing private memories, credentials, or project-specific context.
+It distills practical day-to-day software engineering discipline into a low-overhead workflow (`SKILL.md` is ~45 lines; detailed verification rules load on demand) — without importing private memories, credentials, or project-specific context.
 
 ## Why this skill?
 
 Many coding agents either over-interview on routine tasks or stop early after a green build without verifying actual behavior. `claude-style-engineer` guides an agent to:
 
-- **Own the task end to end in one thread** — investigate, implement, verify, fix, and hand off without spawning conflicting subagents by default.
-- **Read the real codebase first** — check `git status`, project instructions, nearby patterns, and actual behavior before editing; distinguish existing behavior from intended behavior.
-- **Verify against acceptance criteria, not just builds** — run targeted checks first, then regressions; never delete, skip, or weaken assertions to force green; inspect rendered UI and transitions for visual changes; report exact commands and outcomes honestly.
+- **Own the task end to end in one thread** — single-agent write ownership avoids conflicting concurrent edits, while still allowing parallel read-only exploration; stays lightweight unless heavier design ceremony is explicitly requested.
+- **Read the real codebase first** — inspect `git status`, project instructions, nearby patterns, and actual behavior before editing; distinguish existing behavior from intended behavior.
+- **Fix root causes, not symptoms** — no swallowed exceptions, broad type/lint suppressions, or unrelated dependency/config relaxations to fake a green build.
+- **Verify against acceptance criteria and audit the diff** — run targeted checks first, then regressions; never delete, skip, or weaken assertions; inspect rendered UI and transitions for visual changes; review `git status`/`git diff` and report exact commands and outcomes honestly.
 - **Respect shared workspaces and live services** — never restart the user's running dev servers, never `git reset`/`stash` someone else's uncommitted changes, and keep dependencies in project virtual environments.
-- **Pivot when stuck** — diagnose recoverable failures directly, and switch diagnostic strategy instead of blindly retrying when new attempts yield no evidence.
-- **Decide without unnecessary back-and-forth** — proceed directly on small fixes; present 2–4 concrete options with a recommendation only at genuine product, policy, or destructive forks.
+- **Pivot when stuck & avoid needless interviewing** — proceed directly on small fixes; present 2–4 concrete options with a recommendation only at genuine product, policy, or destructive forks.
 
 ## Repository layout
 
@@ -24,14 +24,14 @@ claude-style-engineer/
 ├── LICENSE                               # MIT License
 └── references/
     ├── verification-preferences.md       # Detailed testing, UI, failure-diagnosis, and deploy checks (loaded on demand)
-    └── development-patterns.md           # Design rationale and anonymized workflow evidence
+    └── development-patterns.md           # Design rationale and anonymized workflow background (not loaded during tasks)
 ```
 
 ## Installation
 
 ### Option 1: Download from Releases (no Git required)
 
-Download `claude-style-engineer-v1.0.0.zip` (or `.tar.gz`) from the [Releases](https://github.com/TingChieh/claude-style-engineer/releases/latest) page, extract it, and copy the `claude-style-engineer/` folder into your agent's skill directory:
+Download the latest `claude-style-engineer-<version>.zip` (or `.tar.gz`) from the [Releases](https://github.com/TingChieh/claude-style-engineer/releases/latest) page, extract it, and copy the `claude-style-engineer/` folder into your agent's skill directory:
 
 ```bash
 # Codex / OpenCode (global)
@@ -84,6 +84,7 @@ After installing, start a new agent session:
 ## Scope and boundaries
 
 - **Not for Q&A or hint-only exercises:** skips automatically when you only want explanations, ideas, or step-by-step hints.
+- **Coexists with heavier workflows:** stays fast and direct for routine fixes and clear features; defers to formal brainstorming/planning or multi-agent splits when you ask for them or project instructions require them.
 - **Project rules take precedence:** this global skill does not override repository `AGENTS.md`/`CLAUDE.md` files, safety rules, or explicit user instructions.
 - **No automatic production deployment:** a green `main` branch or passing test suite is never treated as implicit authorization to deploy.
 
